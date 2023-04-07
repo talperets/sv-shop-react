@@ -88,9 +88,20 @@ function App() {
         style={{ display: showCartContainer ? "flex" : "none" }}
       >
         <h2>Cart</h2>
-        {selectedProducts.map((val, index) => {
-          return <Cart name={val.name} price={val.price} />;
-        })}
+        {selectedProducts.length ? (
+          selectedProducts.map((val, index) => {
+            return (
+              <Cart
+                name={val.name}
+                index={index}
+                price={val.price}
+                removeProduct={removeProduct}
+              />
+            );
+          })
+        ) : (
+          <h2>Your Cart is empty</h2>
+        )}
         <h1>Total: {Math.round(total)}$</h1>
         <Button
           variant="contained"
