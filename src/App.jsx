@@ -23,6 +23,9 @@ function App() {
     let item = productArr.filter((val, index) => index === i);
     setProduct([...selectedProducts, ...item]);
   };
+  const removeProduct = (i) => {
+    setProduct([...selectedProducts.filter((val, index) => index !== i)]);
+  };
 
   const getTotalPrice = () => {
     return selectedProducts.reduce((total, item) => total + item.price, 0);
@@ -39,6 +42,7 @@ function App() {
     setShowProductContainer(false);
     setShowCartContainer(true);
   };
+  const sum = selectedProducts.length;
   const buyProducts = () => {
     purchased = [...selectedProducts];
     setProduct([]);
@@ -54,9 +58,12 @@ function App() {
 
         <h1>SV-Shop</h1>
 
-        <Button onClick={showCart}>
-          <ShoppingCartIcon />
-        </Button>
+        <div className="cart-btn">
+          <Button onClick={showCart}>
+            <ShoppingCartIcon />
+          </Button>
+          <h2 className="cart-label">{sum}</h2>
+        </div>
       </header>
 
       <div
@@ -70,6 +77,7 @@ function App() {
               price={val.price}
               index={index}
               addProduct={addProduct}
+              removeProduct={removeProduct}
             />
           );
         })}
@@ -84,7 +92,11 @@ function App() {
           return <Cart name={val.name} price={val.price} />;
         })}
         <h1>Total: {Math.round(total)}$</h1>
-        <Button variant="contained" onClick={buyProducts}>
+        <Button
+          variant="contained"
+          disabled={!selectedProducts.length}
+          onClick={buyProducts}
+        >
           Buy
         </Button>
       </div>

@@ -11,6 +11,12 @@ header {
   flex-wrap: nowrap;
   justify-content: space-around;
 }
+.cart-label {
+  margin-top: 24px;
+}
+.cart-btn {
+  display: flex;
+}
 .product {
   border: black 1px solid;
   padding: 10px;
